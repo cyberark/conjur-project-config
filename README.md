@@ -1,44 +1,66 @@
-# {Your project name}
-TODO: Insert brief description of your project
+# IN PROGRESS, BREAKING CHANGES POSSIBLE
 
-## Certification level
-TODO: Select the appropriate certification level section below, and remove all others.
+# Conjur Project Config
 
-{Community}
-![](https://img.shields.io/badge/Certification%20Level-Community-28A745?link=https://github.com/cyberark/community/blob/master/Conjur/conventions/certification-levels.md)
+## Note: Intended For Internal Cyberark Use.
 
-This repo is a **Community** level project. It's a community contributed project that **is not reviewed or supported
-by CyberArk**. For more detailed information on our certification levels, see [our community guidelines](https://github.com/cyberark/community/blob/master/Conjur/conventions/certification-levels.md#community).
+This project is intended for synchronizing common settings among different
+Cyberark repositories, and is public so that public git repositories that 
+need these settings won't need special permissions.  
 
-{Trusted}
-![](https://img.shields.io/badge/Certification%20Level-Trusted-007BFF?link=https://github.com/cyberark/community/blob/master/Conjur/conventions/certification-levels.md)
+However, contributing is limited to Cyberark developers.
 
-This repo is a **Trusted** level project. It's been reviewed by CyberArk to verify that it will securely
-work with Conjur OSS as documented. For more detailed  information on our certification levels, see
-[our community guidelines](https://github.com/cyberark/community/blob/master/Conjur/conventions/certification-levels.md#community).
+## Goal
 
-{Certified}
-![](https://img.shields.io/badge/Certification%20Level-Certified-6C757D?link=https://github.com/cyberark/community/blob/master/Conjur/conventions/certification-levels.md)
+To ensure:
 
-This repo is a **Certified** level project. It's been reviewed by CyberArk to verify that it will securely
-work with CyberArk DAP as documented. In addition, CyberArk offers Enterprise-level support for these features. For
-more detailed  information on our certification levels, see [our community guidelines](https://github.com/cyberark/community/blob/master/Conjur/conventions/certification-levels.md#community).
+1. Consistent code standards 
+2. Consistent developer experience
 
-## Requirements
+across all our repositories.
 
-TODO: Add any requirements that apply to your project here. Which Conjur / DAP versions is it
-compatible with? Does it integrate with other tools / projects - and if so, what versions of those
-does it require?
+## What
+
+This project houses configuration shared across other repositories.  Currently,
+this includes:
+
+1. Rubocop configuration
+2. Code Climate configuration
+
+It will soon include:
+
+1. Enforce Rebase GH action
 
 ## Usage instructions
 
-TODO: add details for how to use your project. Examples can be quite nice here. You should have
-a high level overview of the benefit of your project and its main use cases.
+First embed this project into your "subscribing" project as a git submodule:
+
+```bash
+git add submodule -b main 'git@github.com:cyberark/conjur-project-config.git'
+```
+
+Then run:
+
+```bash
+./conjur-project-config/update
+```
 
 ## Contributing
 
-We welcome contributions of all kinds to this repository. For instructions on how to get started and descriptions
-of our development workflows, please see our [contributing guide](CONTRIBUTING.md).
+This project is intended for Conjur maintainers only. It is not open to
+community contributions at this time.
+
+### Public Discussion
+
+Since changes to common settings affect all Conjur maintainers, we want
+to make them by consensus.  Disputes, if they arise, can be settled by voting.
+
+Please create an issue or PR that explains the changes you'd like to create.
+The `@cyberark/developers` group will be tagged by default if you open a PR;
+if you create an issue for discussion, you should tag this group manually.
+
+Maintainers can emoji-react to share their feedback on the proposed change,
+and a discussion can take place in the comments.
 
 ## License
 
