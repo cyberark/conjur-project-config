@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+# IMPORTANT: This script must be called from the root of parent repo (ie, the
+# repo in which this repo lives as git submodule).
+
+cp conjur-project-config/files/.codeclimate.yml .
+cp conjur-project-config/files/.rubocop.yml .
+cp conjur-project-config/files/.rubocop_settings.yml .
+
+# Only copy blank .rubocop_todo.yml if it doesn't already exist
+if ! [[ -f .rubocop_todo.yml ]]; then
+  cp conjur-project-config/files/.rubocop_todo.yml .
+fi
