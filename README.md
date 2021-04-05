@@ -1,5 +1,3 @@
-# IN PROGRESS, BREAKING CHANGES POSSIBLE
-
 # Conjur Project Config
 
 ## Note: Intended For Internal Cyberark Use.
@@ -26,24 +24,50 @@ this includes:
 
 1. Rubocop configuration
 2. Code Climate configuration
+3. "Enforce Rebase" Github action
+4. "Update Settings" Github action
 
-It will soon include:
+## How does it work?
 
-1. Enforce Rebase GH action
+The enrolling repository uses two scripts to stay synced with this repository:
 
-## Usage instructions
+1. `update-settings` -- Once enrolled, this runs automatically, about every 5
+   minutes, on Github's servers.  If the settings in this repository have
+   changed, a pull request will open in the enrolled repository with the
+   changes.  The PR will continually update with any future changes until it is
+   merged (so you don't need to worry about multiple PRs being opened).
+   `update-settings` script can be run manually too, if needed.
+2. `update-workflow` -- This must be run manually -- once when enrolling, and
+   then again if we update workflow files in this repository.  Unfortunately,
+   for security reasons, we can't update `.github/workflow` files with
+   automatic PRs.
 
-First embed this project into your "subscribing" project as a git submodule:
+## How to Enroll
+
+First embed this repository into your "enrolling" repository as a git submodule:
 
 ```bash
-git add submodule -b main 'git@github.com:cyberark/conjur-project-config.git'
+git submodule add -b main 'git@github.com:cyberark/conjur-project-config.git'
 ```
 
-Then run:
+Next update the settings by running this command from the root of the enrolling
+repository:
 
 ```bash
-./conjur-project-config/update
+# Note: Run from root of enrolling repository
+./conjur-project-config/update-settings
 ```
+
+Add a commit with a subject like `Import settings for conjur-project-config`.
+
+Finally, add or update the `.github/workflow` files:
+
+```bash
+# Note: Run from root of enrolling repository
+./conjur-project-config/update-workflow
+```
+
+Add a commit with a subject like `Enroll in automatic settings updates`.
 
 ## Contributing
 

@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+# IMPORTANT: This script must be called from the root of parent repo (ie, the
+# repo in which this repo lives as git submodule).
+
+main() {
+  echo "Add or update Rubocop and CodeClimate settings files."
+
+  cp conjur-project-config/files/.codeclimate.yml .
+  cp conjur-project-config/files/.rubocop.yml .
+  cp conjur-project-config/files/.rubocop_settings.yml .
+
+  if ! [ -f .rubocop_todo.yml ]; then
+    echo "Add blank .rubocop_todo, since none exists."
+    cp conjur-project-config/files/.rubocop_todo.yml .
+  fi
+
+  echo "Done.  Update successful."
+  echo ""
+  echo "Run 'git status' to see if what changed, if anything."
+}
+
+main
