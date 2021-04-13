@@ -1,0 +1,3 @@
+  # Rails - requires detecting a Rails application
+  brakeman:
+    enabled: true

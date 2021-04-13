@@ -47,7 +47,7 @@ The enrolling repository uses two scripts to stay synced with this repository:
 First embed this repository into your "enrolling" repository as a git submodule:
 
 ```bash
-git submodule add -b main 'git@github.com:cyberark/conjur-project-config.git'
+git submodule add -b main 'https://github.com/cyberark/conjur-project-config.git'
 ```
 
 Next update the settings by running this command from the root of the enrolling

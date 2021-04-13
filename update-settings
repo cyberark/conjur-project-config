@@ -4,20 +4,39 @@
 # repo in which this repo lives as git submodule).
 
 main() {
-  echo "Add or update Rubocop and CodeClimate settings files."
 
-  cp conjur-project-config/files/.codeclimate.yml .
-  cp conjur-project-config/files/.rubocop.yml .
-  cp conjur-project-config/files/.rubocop_settings.yml .
-
-  if ! [ -f .rubocop_todo.yml ]; then
-    echo "Add blank .rubocop_todo, since none exists."
-    cp conjur-project-config/files/.rubocop_todo.yml .
+  if ! [ -f .make_codeclimate ]; then
+    echo "Adding default .make_codeclimate, since none exists."
+    echo ""
+    echo "*********************************************************************"
+    echo "WARNING: Edit .make_codeclimate and re-run this script to add"
+    echo "         support for ruby or rails."
+    echo "*********************************************************************"
+    echo ""
+    cp conjur-project-config/files/codeclimate/.make_codeclimate .
+    chmod +x .make_codeclimate
   fi
 
-  echo "Done.  Update successful."
+  echo "Assemble .codeclimate.yml using .make_codeclimate."
+  ./.make_codeclimate > .codeclimate.yml
+  echo "Done."
   echo ""
+
+  echo "Add or update Rubocop settings files."
+
+  cp conjur-project-config/files/rubocop/.rubocop.yml .
+  cp conjur-project-config/files/rubocop/.rubocop_settings.yml .
+
+  if ! [ -f .rubocop_todo.yml ]; then
+    echo "   - Add blank .rubocop_todo, since none exists."
+    echo ""
+    cp conjur-project-config/files/rubocop/.rubocop_todo.yml .
+  fi
+  echo "Done."
+  echo ""
+
   echo "Run 'git status' to see if what changed, if anything."
+  echo ""
 }
 
 main

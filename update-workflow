@@ -1,9 +1,13 @@
 #!/usr/bin/env bash
+set -e
 
 # IMPORTANT: This script must be called from the root of parent repo (ie, the
 # repo in which this repo lives as git submodule).
 
 main() {
+  # Ensure `.github/workflows` dir exists.
+  mkdir -p .github/workflows
+
   # One time validation.
   #
   # Validate that already-released actions don't exist in other workflow files.
