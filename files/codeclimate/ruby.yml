@@ -1,0 +1,3 @@
+  # Ruby - requires presence of Gemfile and Gemfile.lock
+  bundler-audit:
+    enabled: true
