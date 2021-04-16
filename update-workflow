@@ -32,7 +32,7 @@ main() {
 
   cp conjur-project-config/files/workflows/* ./.github/workflows
 
-  echo "Done.  Update successful."
+  echo "Done."
   echo ""
   echo "Run 'git status' to see if what changed, if anything."
 }
