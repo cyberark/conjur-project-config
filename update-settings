@@ -28,8 +28,7 @@ main() {
   cp conjur-project-config/files/rubocop/.rubocop_settings.yml .
 
   if ! [ -f .rubocop_todo.yml ]; then
-    echo "   - Add blank .rubocop_todo, since none exists."
-    echo ""
+    echo "   - Adding blank .rubocop_todo, since none exists."
     cp conjur-project-config/files/rubocop/.rubocop_todo.yml .
   fi
   echo "Done."
