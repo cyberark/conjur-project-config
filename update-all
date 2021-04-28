@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+set -e
+
+enrolling_root=$(git rev-parse --show-toplevel)
+config_root=$enrolling_root/conjur-project-config
+
+# Make sure this is being called from the enrolling repo's root
+if ! [ -d "$config_root" ]; then
+  echo "Please call from your project's root after adding "
+  echo "conjur-project-config as a git submodule"
+  exit 1
+fi
+
+printf 'BEGIN update-all\n\n'
+
+"$config_root/update-settings"
+"$config_root/update-workflow"
+
+echo "update-all was SUCCESSFUL"
