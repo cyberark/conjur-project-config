@@ -1,19 +1,21 @@
 #!/usr/bin/env bash
 set -e
 
-# IMPORTANT: This script must be called from the root of parent repo (ie, the
-# repo in which this repo lives as git submodule).
+enrolling_root=$(git rev-parse --show-toplevel)
+config_root=$enrolling_root/conjur-project-config
 
 main() {
+  printf "BEGIN update-workflow\n\n"
+
   # Ensure `.github/workflows` dir exists.
   mkdir -p .github/workflows
 
   # One time validation.
   #
   # Validate that already-released actions don't exist in other workflow files.
-  # If they do, the repo running this 'update' script is running it for the
-  # first time.  To be safe, we force the developer to manually edit or remove
-  # the existing files to avoid duplicating the actions.
+  # If they do, the repo running this script is running it for the first time.
+  # To be safe, we force the developer to manually edit or remove the existing
+  # files to avoid duplicating the actions.
   valid=true
   while read -rd $'\0' file; do
     for action in enforce-rebase enforce-commit-style; do
@@ -29,11 +31,10 @@ main() {
   fi
 
   echo "Add or update common Github workflow files."
+  cp "$config_root/files/workflows/"* "$enrolling_root/.github/workflows"
+  printf "Done.\n\n"
 
-  cp conjur-project-config/files/workflows/* ./.github/workflows
-
-  echo "Done."
-  echo ""
+  echo "update-workflow was SUCCESSFUL"
   echo "Run 'git status' to see if what changed, if anything."
 }
 
@@ -50,6 +51,7 @@ The '$action' Github action already exists in the file:
 
 Please manually edit or delete the file to remove the action.
 Then, re-run this script.
+
 The action will be added back using a dedicated workflow file.
 
 EOS

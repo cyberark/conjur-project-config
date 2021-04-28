@@ -1,41 +1,35 @@
 #!/usr/bin/env bash
+set -e
 
-# IMPORTANT: This script must be called from the root of parent repo (ie, the
-# repo in which this repo lives as git submodule).
+enrolling_root=$(git rev-parse --show-toplevel)
+config_root=$enrolling_root/conjur-project-config
 
 main() {
+  printf "BEGIN update-settings\n\n"
 
   if ! [ -f .make_codeclimate ]; then
     echo "Adding default .make_codeclimate, since none exists."
-    echo ""
-    echo "*********************************************************************"
-    echo "WARNING: Edit .make_codeclimate and re-run this script to add"
-    echo "         support for ruby or rails."
-    echo "*********************************************************************"
-    echo ""
-    cp conjur-project-config/files/codeclimate/.make_codeclimate .
+    cp "$config_root/files/codeclimate/.make_codeclimate" "$enrolling_root"
     chmod +x .make_codeclimate
+    printf "Done.\n\n"
   fi
 
   echo "Assemble .codeclimate.yml using .make_codeclimate."
-  ./.make_codeclimate > .codeclimate.yml
-  echo "Done."
-  echo ""
+  "$enrolling_root/.make_codeclimate" > "$enrolling_root/.codeclimate.yml"
+  printf "Done.\n\n"
 
   echo "Add or update Rubocop settings files."
-
-  cp conjur-project-config/files/rubocop/.rubocop.yml .
-  cp conjur-project-config/files/rubocop/.rubocop_settings.yml .
+  cp "$config_root/files/rubocop/.rubocop.yml" "$enrolling_root"
+  cp "$config_root/files/rubocop/.rubocop_settings.yml" "$enrolling_root"
 
   if ! [ -f .rubocop_todo.yml ]; then
     echo "   - Adding blank .rubocop_todo, since none exists."
     cp conjur-project-config/files/rubocop/.rubocop_todo.yml .
   fi
-  echo "Done."
-  echo ""
+  printf "Done.\n\n"
 
+  echo "update-settings was SUCCESSFUL"
   echo "Run 'git status' to see if what changed, if anything."
-  echo ""
 }
 
 main
