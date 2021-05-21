@@ -2,7 +2,7 @@ name: Enforce Git Rules
 
 on:
   pull_request:
-    branches: [ master ]
+    branches: [ $default-branch ]
     types: [ opened, synchronize, reopened, edited ]
 
 jobs:
@@ -15,8 +15,10 @@ jobs:
       uses: actions/checkout@v2
       with:
         fetch-depth: 0
-    - name: Is Rebased on master?
+    - name: Is Rebased on the default branch?
       uses: cyberark/enforce-rebase@v2
+      with:
+        default-branch: $default-branch
 
   commit_style:
     runs-on: ubuntu-latest
