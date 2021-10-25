@@ -2,7 +2,7 @@ name: Enforce Git Rules
 
 on:
   pull_request:
-    branches: [ master ]
+    branches: [ master, main ]
     types: [ opened, synchronize, reopened, edited ]
 
 jobs:
